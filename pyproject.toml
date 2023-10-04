@@ -7,6 +7,7 @@ authors = ["cardrocha"]
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.2.5"
+django-rest-framework = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.2"
