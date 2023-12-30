@@ -26,7 +26,7 @@ class TestProductViewSet(APITestCase):
 
   def test_get_all_product(self):
     token = Token.objects.get(user__username=self.user.username)
-    self.client.credentials(HTTP_AUTHORIZATION='Token' + token.key)
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
     response = self.client.get(
         reverse('product-list', kwargs={'version': 'v1'})
     )
@@ -40,18 +40,18 @@ class TestProductViewSet(APITestCase):
 
   def test_create_product(self):
     token = Token.objects.get(user__username=self.user.username)
-    self.client.credentials(HTTP_AUTHORIZATION='Token' + token.key)
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
     category = CategoryFactory()
     data = json.dumps({
         'title': 'notebook',
         'price': 800.00,
-        'categories_id': [ category.id ]
+        'categories': [category.id]
     })
 
     response = self.client.post(
-      reverse('product-list', kwargs={'version': 'v1'}),
-      data=data,
-      content_type='application/json'
+        reverse('product-list', kwargs={'version': 'v1'}),
+        data=data,
+        content_type='application/json'
     )
 
     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
